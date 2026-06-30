@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+/* =====================================================
+   BASE
+===================================================== */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #05070A;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* =====================================================
+   INFINITE VERTICAL SCROLL
+===================================================== */
+
+@keyframes scrollUp {
+
+  0% {
+    transform: translateY(0%);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scrollDown {
+
+  0% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-scroll {
+
+  animation:
+    scrollUp 30s linear infinite;
+}
+
+.animate-scroll-reverse {
+
+  animation:
+    scrollDown 30s linear infinite;
+}
+
+/* =====================================================
+   GLOBAL WALL FREEZE
+===================================================== */
+
+body.wall-paused
+.animated-column {
+
+  animation-play-state: paused;
+}
+
+/* =====================================================
+   HOVER INTELLIGENCE MODE
+===================================================== */
+
+.intelligence-card {
+
+  transition:
+    filter 0.5s ease,
+    transform 0.5s ease,
+    opacity 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+body.intelligence-focus
+.intelligence-card {
+
+  filter:
+    grayscale(100%)
+    brightness(0.4);
+
+  opacity: 0.5;
+}
+
+body.intelligence-focus
+.intelligence-card.hover-active {
+
+  filter:
+    grayscale(0%)
+    brightness(1);
+
+  opacity: 1;
+
+  z-index: 100;
+
+  box-shadow:
+    0 20px 80px rgba(0,0,0,0.65),
+    0 0 0 1px rgba(255,255,255,0.06);
+}
+
+.intelligence-image {
+
+  transition:
+    transform 0.7s ease,
+    filter 0.7s ease;
+}
+
+body.intelligence-focus
+.intelligence-image {
+
+  filter: grayscale(100%);
+}
+
+body.intelligence-focus
+.intelligence-card.hover-active
+.intelligence-image {
+
+  filter: grayscale(0%);
+
+  transform: scale(1.08);
+}
+
+/* =====================================================
+   GPU COMPOSITING FIX
+===================================================== */
+
+.animated-column {
+
+  transform: translateZ(0);
+
+  backface-visibility: hidden;
+
+  perspective: 1000;
+
+  will-change: transform;
+}
+
+nav {
+
+  transform: translateZ(0);
+
+  isolation: isolate;
+
+  backface-visibility: hidden;
+}
+
+@keyframes slide {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-40px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.22);
+}
